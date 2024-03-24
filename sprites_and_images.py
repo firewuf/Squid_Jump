@@ -2,14 +2,16 @@ import pygame
 from abc import ABC, abstractmethod
 
 sprite_sheet_image = pygame.image.load("smg_spritesheet.png")
-sprite_bg_color = (51,0,51)
+sprite_bg_color = (51, 0, 51)
 
 
 class Actor(ABC):
     def __init__(self, width, height, pos_x, pos_y, scale=1, color=sprite_bg_color):
         self.sprite = pygame.Surface((width, height)).convert_alpha()
         self.sprite.blit(sprite_sheet_image, (0, 0), (pos_x, pos_y, width, height))
-        self.sprite = pygame.transform.scale(self.sprite, (width * scale, height * scale))
+        self.sprite = pygame.transform.scale(
+            self.sprite, (width * scale, height * scale)
+        )
         self.sprite.set_colorkey(color)
 
     def get_resting_state(self) -> pygame.Surface:
@@ -80,3 +82,22 @@ class RedFish(Actor):
 
     def __init__(self):
         super().__init__(RedFish.width, RedFish.height, 128, 22)
+
+
+class Background:
+    sprite_width = 240
+    sprite_height = 240
+
+    def __init__(self, screen_width: int, screen_height: int):
+        self.background = pygame.Surface((Background.sprite_width, Background.sprite_height))
+
+        self.background.blit(
+            sprite_sheet_image,
+            (0, 0),
+            (2, 126, Background.sprite_width, Background.sprite_height),
+        )
+
+        self.background = pygame.transform.scale(self.background, (screen_width, screen_height))
+
+    def get_background(self) -> pygame.Surface:
+        return self.background

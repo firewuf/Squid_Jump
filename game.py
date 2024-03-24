@@ -1,14 +1,8 @@
 import pygame
-import sprites
+import sprites_and_images as sai
 
 SCREEN_WIDTH = 500
 SCREEN_HEIGHT = 500
-
-# Images/Sprites
-sprite_sheet_image = pygame.image.load("smg_spritesheet.png")
-
-main_char_width = 16
-main_char_height = 16
 
 
 def run_game():
@@ -23,7 +17,14 @@ def run_game():
                 run = False
                 break
 
+        draw_game(screen)
+
     pygame.quit()
+
+
+def draw_game(screen: pygame.Surface):
+    screen.blit(sai.Background(SCREEN_WIDTH, SCREEN_HEIGHT).get_background(), (0, 0))
+    pygame.display.update()
 
 
 def screen_config() -> pygame.Surface:
